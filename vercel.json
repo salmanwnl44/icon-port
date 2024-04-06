@@ -1,0 +1,30 @@
+{
+  "builds": [
+    {
+      "src": "build_files.sh",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "IconPort/wsgi.py",
+      "use": "@vercel/python",
+      "config": {
+        "maxLambdaSize": "80mb",
+        "runtime": "python3.11"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "IconPort/wsgi.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "IconPort/wsgi.py"
+    }
+  ]
+}
